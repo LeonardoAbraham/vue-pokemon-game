@@ -11,6 +11,12 @@
             :pokemons="pokemonArr" 
             @selection="checkAnswer" 
         />
+        
+        <template v-if="showAnswer">
+            <h2 class="fade-in">{{message}}</h2>
+            <boton-leo @click-boton="newGame" leyenda="Nuevo juego"></boton-leo>
+        </template>
+        
     </div>
 </template>
 <script>
@@ -18,17 +24,21 @@
 import PokemonOptions from '@/components/PokemonOptions'
 import PokemonPicture from '@/components/PokemonPicture'
 import getPokemonOptions from '@/helpers/getPokemonOptions'
+import BotonLeo from '@/components/BotonLeo.vue';
 
 export default {
     components:{
         PokemonPicture, 
-        PokemonOptions
+        PokemonOptions,
+        "boton-leo":BotonLeo,
     },
     data() {
         return {
             pokemonArr: [],
             pokemon: null,
             showPokemon: false,
+            showAnswer: false,
+            message:''
         }
     },
     methods: {
@@ -39,8 +49,23 @@ export default {
 
             this.pokemon = this.pokemonArr[rndInt]
         },
-        checkAnswer(pokemonId){
+        checkAnswer(selectedId){
             this.showPokemon = true;
+            this.showAnswer = true;
+            if(selectedId === this.pokemon.id){
+                this.message = `Correcto, ${ this.pokemon.name }`
+            }
+            else{
+                this.message = `Oops, era ${ this.pokemon.name }`
+            }
+        },
+        newGame(){
+            this.showPokemon    = false;
+            this.showAnswer     = false;
+            this.pokemonArr     = [];
+            this.pokemon        = null;
+            this.message        = '';
+            this.mixPokemonArray();
         }
     },
     mounted() {
