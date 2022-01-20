@@ -1,10 +1,8 @@
 <template>
     <h1>¿Quién es este pokémon?</h1>
-    <!-- Componente Imagen pokémon-->
     <PokemonPicture :pokemonId="25" :showPokemon="true"></PokemonPicture>
-    <PokemonOptions/>
+    <PokemonOptions :pokemons="pokemonArr" />
 
-    <!-- Componente Opciones -->
 </template>
 <script>
 
@@ -16,6 +14,19 @@ export default {
     components:{
         PokemonPicture, 
         PokemonOptions
+    },
+    data() {
+        return {
+            pokemonArr: [],
+        }
+    },
+    methods: {
+        async mixPokemonArray(){
+            this.pokemonArr = await getPokemonOptions()
+        }
+    },
+    mounted() {
+        this.mixPokemonArray();
     },
 
 }
