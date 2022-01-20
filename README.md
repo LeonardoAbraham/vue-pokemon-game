@@ -22,3 +22,6 @@ yarn test:unit
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+### Versión online
+Ver en [Vue Pokémon game](https://vue-pokemon-leonardo.netlify.app/)
